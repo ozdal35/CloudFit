@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container">
+    {% if plan %}
+        <div class="text-center mb-5">
+            <h2 class="display-5 text-white">{{ plan.title }}</h2>
+            <p class="text-muted">Follow the plan strictly for best results.</p>
+        </div>
+
+        <div class="card shadow-lg border-0 bg-dark">
+            <div class="card-body p-0 text-center">
+                {% if plan.image %}
+                    <img src="{{ plan.image.url }}" class="img-fluid rounded-top" alt="Diet Plan">
+                {% endif %}
+                
+                <div class="p-4 text-start text-white">
+                    <h4 class="mb-3 text-info">Details & Macros</h4>
+                    <p style="white-space: pre-line;">{{ plan.description }}</p>
+                </div>
+            </div>
+            <div class="card-footer bg-secondary text-dark text-center fw-bold">
+                Last Updated: {{ plan.created_at|date:"M d, Y" }}
+            </div>
+        </div>
+    {% else %}
+        <div class="text-center mt-5">
+            <h1 class="display-1">🍎</h1>
+            <h3 class="text-white">No Nutrition Plan Found</h3>
+            <p class="text-muted">Your coach hasn't uploaded a diet plan for you yet.</p>
+        </div>
+    {% endif %}
+</div>
+{% endblock %}

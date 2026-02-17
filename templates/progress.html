@@ -1,0 +1,80 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="row">
+    <div class="col-lg-4 mb-5">
+        <div class="card border-secondary shadow bg-dark">
+            <div class="card-header bg-secondary text-dark fw-bold">
+                📸 UPLOAD NEW CHECK-IN
+            </div>
+            <div class="card-body">
+                <form method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    
+                    <div class="mb-3">
+                        <label class="text-white small">Current Weight (kg)</label>
+                        <input type="number" step="0.1" name="weight" class="form-control bg-black text-white border-secondary" required>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="text-white small">Front Photo</label>
+                        <input type="file" name="photo_front" class="form-control bg-black text-white border-secondary">
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label class="text-white small">Side Photo</label>
+                        <input type="file" name="photo_side" class="form-control bg-black text-white border-secondary">
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="text-white small">Back Photo</label>
+                        <input type="file" name="photo_back" class="form-control bg-black text-white border-secondary">
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="text-white small">Notes for Coach</label>
+                        <textarea name="notes" class="form-control bg-black text-white border-secondary" rows="2"></textarea>
+                    </div>
+
+                    <button type="submit" class="btn btn-neon w-100 fw-bold">SUBMIT UPDATE</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-lg-8">
+        <h3 class="text-white mb-4">PREVIOUS CHECK-INS</h3>
+        
+        {% for update in updates %}
+        <div class="card mb-4 border-secondary bg-dark">
+            <div class="card-body">
+                <div class="d-flex justify-content-between mb-3">
+                    <h5 class="text-info">{{ update.date }}</h5>
+                    <span class="badge bg-light text-dark fs-6">{{ update.weight }} kg</span>
+                </div>
+                
+                {% if update.notes %}
+                    <p class="text-secondary small border-start border-3 border-info ps-2">{{ update.notes }}</p>
+                {% endif %}
+
+                <div class="row g-2 mt-3">
+                    {% if update.photo_front %}
+                        <div class="col-4"><img src="{{ update.photo_front.url }}" class="img-fluid rounded border border-secondary"></div>
+                    {% endif %}
+                    {% if update.photo_side %}
+                        <div class="col-4"><img src="{{ update.photo_side.url }}" class="img-fluid rounded border border-secondary"></div>
+                    {% endif %}
+                    {% if update.photo_back %}
+                        <div class="col-4"><img src="{{ update.photo_back.url }}" class="img-fluid rounded border border-secondary"></div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        {% empty %}
+        <div class="text-center text-muted py-5 border border-secondary rounded border-dashed">
+            <p>No check-ins yet. Upload your first form check!</p>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}
