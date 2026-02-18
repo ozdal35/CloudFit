@@ -71,8 +71,8 @@ class ProgressUpdate(models.Model):
 # ==========================================
 class CoachQnA(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    question = models.TextField(verbose_name="Question")
-    answer = models.TextField(verbose_name="Coach Answer", blank=True, null=True)
+    question = models.TextField(verbose_name="Message")
+    answer = models.TextField(verbose_name="Messages(Q&A)", blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
     is_answered = models.BooleanField(default=False)
 
