@@ -26,6 +26,15 @@ DEBUG = os.getenv('DEBUG', 'False') == 'True'
 # Azure domainini buraya ekleyeceğiz. Şimdilik '*' diyerek herkese izin veriyoruz.
 ALLOWED_HOSTS = ['*']
 
+# =========================================================
+# CSRF TRUSTED ORIGINS (Azure için ŞART!)
+# =========================================================
+# Bu ayar olmadan login formunu gönderdiğinde 403 hatası alırsın.
+# Buraya senin Azure adresini (https ile başlayarak) ekledim.
+CSRF_TRUSTED_ORIGINS = [
+    'https://cloudfit-efe-app-fsevahexgxfgdma9.francecentral-01.azurewebsites.net',
+]
+
 
 # =========================================================
 # APPLICATION DEFINITION
